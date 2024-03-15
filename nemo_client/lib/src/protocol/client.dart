@@ -49,6 +49,33 @@ class EndpointFoodWhaleUserAuth extends _i1.EndpointRef {
         {'foodWhaleUser': foodWhaleUser},
       );
 
+  _i2.Future<bool> isEmailExist(String emailParam) =>
+      caller.callServerEndpoint<bool>(
+        'foodWhaleUserAuth',
+        'isEmailExist',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<bool> isPhoneExist(
+    String countryCodeParam,
+    String phoneParam,
+  ) =>
+      caller.callServerEndpoint<bool>(
+        'foodWhaleUserAuth',
+        'isPhoneExist',
+        {
+          'countryCodeParam': countryCodeParam,
+          'phoneParam': phoneParam,
+        },
+      );
+
+  _i2.Future<_i3.Response> sendResetPasswordLink(String emailParam) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodWhaleUserAuth',
+        'sendResetPasswordLink',
+        {'emailParam': emailParam},
+      );
+
   _i2.Future<_i4.FoodWhaleUser?> signIn(
     String email,
     String password,

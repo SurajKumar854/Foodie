@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nemo_flutter/utils/utils.dart';
+import '../../../../../main.dart';
 
 import '../../../common/widget/app_bar.dart';
 
@@ -14,6 +16,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   String titleBar = "Forgot Password";
   double bodyPadding = 16;
   var emailTC = TextEditingController();
+
+  Future<void>sendEmail()async{
+    var result=await client.foodWhaleUserAuth.sendResetPasswordLink(emailTC.text);
+    if(result.status){
+      Utils.toastMessage(result.message);
+    }else {
+       Utils.toastMessage(result.message);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +87,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
+                      sendEmail();
 
                     },
                     child: Container(

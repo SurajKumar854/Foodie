@@ -103,6 +103,69 @@ class Endpoints extends _i1.EndpointDispatch {
             params['foodWhaleUser'],
           ),
         ),
+        'isEmailExist': _i1.MethodConnector(
+          name: 'isEmailExist',
+          params: {
+            'emailParam': _i1.ParameterDescription(
+              name: 'emailParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodWhaleUserAuth'] as _i3.FoodWhaleUserAuthEndpoint)
+                  .isEmailExist(
+            session,
+            params['emailParam'],
+          ),
+        ),
+        'isPhoneExist': _i1.MethodConnector(
+          name: 'isPhoneExist',
+          params: {
+            'countryCodeParam': _i1.ParameterDescription(
+              name: 'countryCodeParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'phoneParam': _i1.ParameterDescription(
+              name: 'phoneParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodWhaleUserAuth'] as _i3.FoodWhaleUserAuthEndpoint)
+                  .isPhoneExist(
+            session,
+            params['countryCodeParam'],
+            params['phoneParam'],
+          ),
+        ),
+        'sendResetPasswordLink': _i1.MethodConnector(
+          name: 'sendResetPasswordLink',
+          params: {
+            'emailParam': _i1.ParameterDescription(
+              name: 'emailParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodWhaleUserAuth'] as _i3.FoodWhaleUserAuthEndpoint)
+                  .sendResetPasswordLink(
+            session,
+            params['emailParam'],
+          ),
+        ),
         'signIn': _i1.MethodConnector(
           name: 'signIn',
           params: {

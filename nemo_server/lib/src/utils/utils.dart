@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 
@@ -12,5 +13,14 @@ class Utlis {
     var hash = sha256.convert(bytes);
     return  hash.toString();
   }
+
+  static  String  generateOTP() {
+  Random random = Random();
+  String otp = '';
+  for (int i = 0; i < 6; i++) {
+    otp += random.nextInt(10).toString();
+  }
+  return otp;
+}
     
 }

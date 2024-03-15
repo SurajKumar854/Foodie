@@ -3,6 +3,9 @@ example:
   - testing:
 foodWhaleUserAuth:
   - signup:
+  - isEmailExist:
+  - isPhoneExist:
+  - sendResetPasswordLink:
   - signIn:
 note:
   - hello:
