@@ -1,0 +1,24 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "nemo",
+            "database": "notes",
+            "username": "postgres",
+            "password": "_NQXPRF7nuNGxaPYNhgokaj_m6QigBSJ"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 8090,
+            "driver": "PostgreSQL",
+            "name": "nemo",
+            "database": "nemo",
+            "username": "postgres",
+            "password": "_NQXPRF7nuNGxaPYNhgokaj_m6QigBSJ"
+        }
+    ]
+}
