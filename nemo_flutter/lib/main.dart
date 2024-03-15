@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nemo_client/nemo_client.dart';
 import 'package:flutter/material.dart';
 import 'package:nemo_flutter/ui/navigation/routes/routes.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password/reset_password_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/sign_in_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/signup/bloc/sign_up_bloc.dart';
@@ -79,12 +80,13 @@ class MyApp extends StatelessWidget {
         ],
 
         debugShowCheckedModeBanner: false,
-        title: 'Food Whale',
+        title: 'Foodie',
         routes: {
           Routes.SPLASH_SCREEN: (context) => SplashScreen(),
           Routes.ONBOARD_SCREEN: (context) => const SignInScreen(),
           Routes.DASHBOARD_SCREEN: (context) => const DashboardScreen(),
-          Routes.SIGN_UP_SCREEN: (context) => const SignUpScreen()
+          Routes.SIGN_UP_SCREEN: (context) => const SignUpScreen(),
+          Routes.RESET_SCREEN: (context) => const ResetPasswordScreen()
 
         },
         home: const SplashScreen(),

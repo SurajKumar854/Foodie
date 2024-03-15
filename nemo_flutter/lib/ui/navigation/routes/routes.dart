@@ -3,4 +3,5 @@ class Routes {
   static final String ONBOARD_SCREEN = "onboard_screen";
   static final String DASHBOARD_SCREEN = "dashboard_screen";
   static final String SIGN_UP_SCREEN = "signup_screen";
+  static final String RESET_SCREEN = "reset_screen";
 }

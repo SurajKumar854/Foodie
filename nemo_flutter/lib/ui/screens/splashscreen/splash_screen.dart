@@ -31,6 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
         appBar: AppBar(),
         backgroundColor: Colors.white,
         body: Container(
-            child: Center(child: Lottie.asset("assets/json/splash.json",height: 200))));
+            child: Center(child: Lottie.asset("assets/json/splash_animation.json",height: 200))));
   }
 }

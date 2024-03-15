@@ -9,6 +9,7 @@ import 'package:nemo_flutter/ui/screens/auth/signup/state/sign_up_state.dart';
 
 import '../../../../country_code_picker/country_code_picker.dart';
 import '../../../../utils/utils.dart';
+import '../../../common/widget/app_bar.dart';
 import '../../../navigation/routes/routes.dart';
 import '../signin/bloc/sign_in_bloc.dart';
 import '../signin/event/sign_in_event.dart';
@@ -28,19 +29,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var lastName = TextEditingController();
   var emailTC = TextEditingController();
   var mobileTC = TextEditingController();
-
-  var country = "";
   var passwordTC = TextEditingController();
   var cPasswordTC = TextEditingController();
+
+  var country = "";
   var countryCode = "";
 
   var passwordVisible = true;
   var cPasswordVisible = true;
   var isRegisterBtnEnable = false;
-  final RegExp emailValid = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-  final RegExp passwordValid =
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+
   var errorMsgCPassword;
   var errorMsgPassword;
   var errorMsgEmail;
@@ -52,13 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            titleBar,
-            style: TextStyle(fontFamily: "logo", fontSize: 32),
-          ),
-        ),
+        appBar: FoodieAppbar(title: titleBar),
         body: BlocConsumer<SignUpBloc, SignUpState>(
             builder: (BuildContext context, SignUpState state) {
           return SingleChildScrollView(
@@ -147,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     onChanged: (value) {
                                       Future.delayed(
                                           Duration(milliseconds: 200), () {
-                                        if (!emailValid.hasMatch(value)) {
+                                        if (!Utils.isEmailValid(value)) {
                                           setState(() {
                                             errorMsgEmail =
                                                 "Please enter valid email";
@@ -194,11 +186,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     child: CountryCodePicker(
                                       showCountryOnly: false,
                                       initialSelection: 'IN',
-                                      onInit:(mcountryCode){
-                                       
-                                          countryCode = mcountryCode!.dialCode!;
-                                          country = mcountryCode!.code!;
-                                      
+                                      onInit: (mcountryCode) {
+                                        countryCode = mcountryCode!.dialCode!;
+                                        country = mcountryCode!.code!;
                                       },
                                       onChanged: (mcountryCode) {
                                         setState(() {
@@ -262,22 +252,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     keyboardType: TextInputType.visiblePassword,
                                     obscureText: passwordVisible,
                                     textInputAction: TextInputAction.done,
-                                    onChanged: (value){
-                                      Future.delayed(Duration(milliseconds: 200),(){
-                                        if(!passwordValid.hasMatch(value)){
+                                    onChanged: (value) {
+                                      Future.delayed(
+                                          Duration(milliseconds: 200), () {
+                                        if (!Utils.isPasswordValid(value)) {
                                           setState(() {
-                                            errorMsgPassword="Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.";
+                                            errorMsgPassword =
+                                                "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.";
                                           });
-                                        }else {
+                                        } else {
                                           setState(() {
-                                            errorMsgPassword=null;
+                                            errorMsgPassword = null;
                                           });
-
                                         }
                                       });
                                     },
                                     decoration: InputDecoration(
-                                      errorText: errorMsgPassword,
+                                        errorText: errorMsgPassword,
                                         hintStyle: TextStyle(
                                             fontSize: 16, color: Colors.grey),
                                         hintText: "*******",
@@ -331,14 +322,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             errorMsgCPassword = null;
                                           });
                                         }
-
-
                                       });
                                     },
                                     textInputAction: TextInputAction.done,
-                                    onEditingComplete: () {
-                                     
-                                    },
+                                    onEditingComplete: () {},
                                     decoration: InputDecoration(
                                         errorText: errorMsgCPassword,
                                         errorStyle: TextStyle(),
@@ -406,13 +393,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         "Please enter valid email ");
                                     return;
                                   }
-                                  if (!passwordValid.hasMatch(passwordTC.text)) {
+                                  if (!Utils.isPasswordValid(passwordTC.text)) {
                                     Utils.toastMessage(
                                         "Please enter valid password ");
                                     return;
                                   }
 
-                                  if (passwordTC.text!=cPasswordTC.text) {
+                                  if (passwordTC.text != cPasswordTC.text) {
                                     Utils.toastMessage(
                                         "Please confirm your password");
                                     return;

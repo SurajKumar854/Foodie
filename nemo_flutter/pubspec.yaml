@@ -61,6 +61,7 @@ flutter:
     - assets/json/
     - assets/packages/country_code_picker/i18n/
 
+
   fonts:
   - family: logo
     fonts:

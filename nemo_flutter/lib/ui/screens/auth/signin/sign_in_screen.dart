@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nemo_flutter/ui/common/widget/app_bar.dart';
 import 'package:nemo_flutter/ui/navigation/routes/routes.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/event/sign_in_event.dart';
@@ -24,20 +25,18 @@ class _SignInScreenState extends State<SignInScreen> {
   var emailTC = TextEditingController();
   var passwordTC = TextEditingController();
   var resultMessage = "";
+  var title = "Foodie";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text("Foodie",style: TextStyle(fontFamily: "logo",fontSize: 32),),
-          backgroundColor: Colors.white,
-        ),
+        appBar: FoodieAppbar(title: title),
         body: BlocConsumer<SignInBloc, SignInState>(
             builder: (BuildContext context, SignInState state) {
           return SingleChildScrollView(
             child: Container(
-              color: Colors.white,
+                color: Colors.white,
                 padding: EdgeInsets.all(bodyPadding),
                 child: Column(
                   children: [
@@ -121,14 +120,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              "Forgot password?",
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                           InkWell(child:  Text(
+                             "Forgot password?",
+                             textAlign: TextAlign.end,
+                             style: TextStyle(
+                                 color: Colors.grey,
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.bold),
+                           ),onTap: (){
+                             Navigator.pushNamed(context, Routes.RESET_SCREEN);
+                           },),
                           ],
                         )
                       ],
@@ -167,27 +168,30 @@ class _SignInScreenState extends State<SignInScreen> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            InkWell(onTap: (){
-                              Navigator.pushNamed(context, Routes.SIGN_UP_SCREEN);
-                            },child:   RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                  text: "Don't have an account ?",
-                                  style: TextStyle(
-                                      color: Color(0xff646982),
-                                      fontSize: 18,
-                                      wordSpacing: 2,
-                                      fontWeight: FontWeight.bold),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: " Sign Up",
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, Routes.SIGN_UP_SCREEN);
+                                  },
+                                  child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                        text: "Don't have an account ?",
                                         style: TextStyle(
-                                            color: Color(0xffE53935),
+                                            color: Color(0xff646982),
                                             fontSize: 18,
                                             wordSpacing: 2,
-                                            fontWeight: FontWeight.bold)),
-                                  ]),
-                            ))
+                                            fontWeight: FontWeight.bold),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: " Sign Up",
+                                              style: TextStyle(
+                                                  color: Color(0xffE53935),
+                                                  fontSize: 18,
+                                                  wordSpacing: 2,
+                                                  fontWeight: FontWeight.bold)),
+                                        ]),
+                                  ))
                             ])
                       ],
                     ),
@@ -196,9 +200,7 @@ class _SignInScreenState extends State<SignInScreen> {
           );
         }, listener: (BuildContext context, SignInState state) {
           if (state is SignInLoading) {
-
             Navigator.of(context).push(SignInLoadingScreen());
-
           }
 
           if (state is SignInFail) {
