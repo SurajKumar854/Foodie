@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nemo_client/nemo_client.dart';
 import 'package:flutter/material.dart';
 import 'package:nemo_flutter/ui/navigation/routes/routes.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/reset_password_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/sign_in_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SignInBloc>(create: (_) => SignInBloc()),
         BlocProvider<SignUpBloc>(create: (_) => SignUpBloc()),
+        BlocProvider<ResetPasswordBloc>(create: (_) => ResetPasswordBloc()),
       ],
       child: MaterialApp(
         color: Colors.white,

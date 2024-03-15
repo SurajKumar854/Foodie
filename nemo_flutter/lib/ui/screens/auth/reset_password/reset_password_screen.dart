@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password/event/reset_password_event.dart';
 import 'package:nemo_flutter/utils/utils.dart';
 import '../../../../../main.dart';
 
@@ -16,13 +19,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   String titleBar = "Forgot Password";
   double bodyPadding = 16;
   var emailTC = TextEditingController();
+  var errorEmailMsg;
 
-  Future<void>sendEmail()async{
-    var result=await client.foodWhaleUserAuth.sendResetPasswordLink(emailTC.text);
-    if(result.status){
+  Future<void> sendEmail() async {
+    var result =
+        await client.foodWhaleUserAuth.sendResetPasswordLink(emailTC.text);
+    if (result.status) {
       Utils.toastMessage(result.message);
-    }else {
-       Utils.toastMessage(result.message);
+    } else {
+      Utils.toastMessage(result.message);
     }
   }
 
@@ -51,9 +56,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-
-
                 Text(
                   "Email address",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -68,7 +70,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: TextField(
                         controller: emailTC,
+                        onChanged: (value) {
+                          Future.delayed(Duration(milliseconds: 200), () {
+                            if (!Utils.isEmailValid(value)) {
+                              setState(() {
+                                errorEmailMsg = "Please enter valid email";
+                              });
+                            } else {
+                              setState(() {
+                                errorEmailMsg = null;
+                              });
+                            }
+                          });
+                        },
                         decoration: InputDecoration(
+                            errorText: errorEmailMsg,
                             hintStyle:
                                 TextStyle(fontSize: 16, color: Colors.grey),
                             hintText: "user@gmail.com",
@@ -87,15 +103,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      sendEmail();
-
+                      if (emailTC.text.isEmpty) {
+                        setState(() {
+                          errorEmailMsg = "Please enter your email";
+                        });
+                        return;
+                      }
+                      context
+                          .read<ResetPasswordBloc>()
+                          .add(ResetPasswordEvent(email: emailTC.text));
                     },
                     child: Container(
                         child: Text(
-                          "Reset Password",
-                          style:
-                          TextStyle(color: Colors.white, fontSize: 18),
-                        )))
+                      "Reset Password",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )))
               ],
             ),
           ],
