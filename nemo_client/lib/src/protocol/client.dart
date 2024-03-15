@@ -88,6 +88,19 @@ class EndpointFoodWhaleUserAuth extends _i1.EndpointRef {
           'password': password,
         },
       );
+
+  _i2.Future<_i3.Response> createNewPassword(
+    String email,
+    String password,
+  ) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodWhaleUserAuth',
+        'createNewPassword',
+        {
+          'email': email,
+          'password': password,
+        },
+      );
 }
 
 /// {@category Endpoint}

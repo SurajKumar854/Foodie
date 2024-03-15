@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/event/reset_password_event.dart';
-import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/event/reset_password_event.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/event/reset_password_otp_event.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/event/sign_in_event.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/state/sign_in_state.dart';
 

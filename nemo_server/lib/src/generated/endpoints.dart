@@ -191,6 +191,31 @@ class Endpoints extends _i1.EndpointDispatch {
             params['password'],
           ),
         ),
+        'createNewPassword': _i1.MethodConnector(
+          name: 'createNewPassword',
+          params: {
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'password': _i1.ParameterDescription(
+              name: 'password',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodWhaleUserAuth'] as _i3.FoodWhaleUserAuthEndpoint)
+                  .createNewPassword(
+            session,
+            params['email'],
+            params['password'],
+          ),
+        ),
       },
     );
     connectors['note'] = _i1.EndpointConnector(

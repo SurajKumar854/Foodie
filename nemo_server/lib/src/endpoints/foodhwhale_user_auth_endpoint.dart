@@ -61,9 +61,6 @@ class FoodWhaleUserAuthEndpoint extends Endpoint {
   final smtpServer = SmtpServer('smtp.gmail.com',
       username: 'ersuraj854@gmail.com', password: 'bpva nltv zdwl oysi');
 
- 
-
-
   final message = Message()
     ..from = Address('ersuraj854@gmail.com', 'Foodie Support Team')
     ..recipients.add(emailParam)
@@ -104,12 +101,21 @@ class FoodWhaleUserAuthEndpoint extends Endpoint {
   }else {
     return user.first;
   }
- 
+}
 
-     
-
-     
+Future<Response>createNewPassword(Session session,String email, String password)async{
+  var user = await FoodWhaleUser.db.find(session,where: (p0) {
+    return p0.email.equals(email);
+  },limit: 1);
+  if(user.first==null){
+    return Response(message: "User doesn't exist", status: false);
+  }else {
+    user.first.password=await Utlis.generateHashPassword(password);
+    FoodWhaleUser.db.updateRow(session,user.first);
+    return Response(message: "Password created successfully", status: true);
   }
+
+}
 
 
 }

@@ -13,6 +13,7 @@ import '../../../common/widget/app_bar.dart';
 import '../../../navigation/routes/routes.dart';
 import '../reset_password/models/ResetPassword.dart';
 import '../signin/widget/sign_in_loading_screen.dart';
+import 'event/reset_password_otp_event.dart';
 
 class ResetPasswordOtpScreen extends StatefulWidget {
   const ResetPasswordOtpScreen({super.key});
@@ -76,6 +77,11 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen> {
                   },
                   //runs when every textfield is filled
                   onSubmit: (String verificationCode) {
+                    context
+                        .read<ResetPasswordOTPBloc>()
+                        .add(ResetPasswordOTPEvent(
+                      email: email, otp: otp, enteredOTP: verificationCode
+                    ));
 
                   }, // end onSubmit
                 ),
@@ -97,7 +103,7 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen> {
 
           if (state is ResetPasswordOTPSuccess) {
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.ONBOARD_SCREEN);
+            Navigator.pushNamed(context, Routes.CREATE_NEW_PASSWORD_SCREEN, arguments: email);
           }
         }));
   }

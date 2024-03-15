@@ -19,7 +19,7 @@ class CreateNewPasswordBloc extends Bloc<CreateNewPasswordEvent, CreateNewPasswo
     await Future.delayed(Duration(seconds: 2), () async {
       try {
         var result =
-            await client.foodWhaleUserAuth.sendResetPasswordLink(event.email);
+            await client.foodWhaleUserAuth.createNewPassword(event.email, event.password);
         if (result.status) {
           emit(CreateNewPasswordSuccess(message: result.message));
         } else {

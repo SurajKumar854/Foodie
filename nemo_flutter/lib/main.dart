@@ -7,6 +7,7 @@ import 'package:nemo_flutter/ui/screens/auth/create_new_password/bloc/create_new
 import 'package:nemo_flutter/ui/screens/auth/create_new_password/create_new_password_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/reset_password_screen.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/bloc/reset_password_otp_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/reset_password_otp_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/sign_in_screen.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<SignInBloc>(create: (_) => SignInBloc()),
         BlocProvider<SignUpBloc>(create: (_) => SignUpBloc()),
         BlocProvider<ResetPasswordBloc>(create: (_) => ResetPasswordBloc()),
+        BlocProvider<ResetPasswordOTPBloc>(create: (_) => ResetPasswordOTPBloc()),
         BlocProvider<CreateNewPasswordBloc>(create: (_) => CreateNewPasswordBloc()),
       ],
       child: MaterialApp(
@@ -97,7 +99,7 @@ class MyApp extends StatelessWidget {
           Routes.CREATE_NEW_PASSWORD_SCREEN: (context) => const CreateNewPasswordScreen()
 
         },
-        home: const CreateNewPasswordScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

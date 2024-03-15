@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/create_new_password/bloc/create_new_password_bloc.dart';
+import 'package:nemo_flutter/ui/screens/auth/create_new_password/event/create_new_password_event.dart';
 import 'package:nemo_flutter/ui/screens/auth/create_new_password/state/create_new_password_state.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/event/reset_password_event.dart';
@@ -18,7 +19,8 @@ class CreateNewPasswordScreen extends StatefulWidget {
   const CreateNewPasswordScreen({super.key});
 
   @override
-  State<CreateNewPasswordScreen> createState() => _CreateNewPasswordScreenState();
+  State<CreateNewPasswordScreen> createState() =>
+      _CreateNewPasswordScreenState();
 }
 
 class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
@@ -31,10 +33,11 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   var errorMsgPassword;
   var passwordVisible = true;
   var cPasswordVisible = true;
-
+  String email = "";
 
   @override
   Widget build(BuildContext context) {
+    email = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
         appBar: FoodieAppbar(title: titleBar),
         body: BlocConsumer<CreateNewPasswordBloc, CreateNewPasswordState>(
@@ -58,8 +61,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   children: [
                     Text(
                       "Password",
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 4,
@@ -69,19 +72,18 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         decoration: BoxDecoration(
                             color: Color(0xffEBEBEB),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: TextField(
                             controller: passwordTC,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: passwordVisible,
                             textInputAction: TextInputAction.done,
                             onChanged: (value) {
-                              Future.delayed(
-                                  Duration(milliseconds: 200), () {
+                              Future.delayed(Duration(milliseconds: 200), () {
                                 if (!Utils.isPasswordValid(value)) {
                                   setState(() {
                                     errorMsgPassword =
-                                    "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.";
+                                        "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.";
                                   });
                                 } else {
                                   setState(() {
@@ -92,8 +94,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                             },
                             decoration: InputDecoration(
                                 errorText: errorMsgPassword,
-                                hintStyle: TextStyle(
-                                    fontSize: 16, color: Colors.grey),
+                                hintStyle:
+                                    TextStyle(fontSize: 16, color: Colors.grey),
                                 hintText: "*******",
                                 suffixIcon: IconButton(
                                     icon: Icon(passwordVisible
@@ -101,8 +103,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                                         : Icons.visibility_off),
                                     onPressed: () {
                                       setState(() {
-                                        passwordVisible =
-                                        !passwordVisible;
+                                        passwordVisible = !passwordVisible;
                                       });
                                     }),
                                 border: InputBorder.none))),
@@ -116,8 +117,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   children: [
                     Text(
                       "Confirm Password",
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 4,
@@ -127,18 +128,17 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         decoration: BoxDecoration(
                             color: Color(0xffEBEBEB),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: TextField(
                             controller: cPasswordTC,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: cPasswordVisible,
                             onChanged: (value) {
-                              Future.delayed(
-                                  Duration(milliseconds: 200), () {
+                              Future.delayed(Duration(milliseconds: 200), () {
                                 if (value != passwordTC.text) {
                                   setState(() {
                                     errorMsgCPassword =
-                                    'Confirm password not matching';
+                                        'Confirm password not matching';
                                   });
                                 } else {
                                   setState(() {
@@ -152,8 +152,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                             decoration: InputDecoration(
                                 errorText: errorMsgCPassword,
                                 errorStyle: TextStyle(),
-                                hintStyle: TextStyle(
-                                    fontSize: 16, color: Colors.grey),
+                                hintStyle:
+                                    TextStyle(fontSize: 16, color: Colors.grey),
                                 hintText: "*******",
                                 suffixIcon: IconButton(
                                     icon: Icon(cPasswordVisible
@@ -161,8 +161,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                                         : Icons.visibility_off),
                                     onPressed: () {
                                       setState(() {
-                                        cPasswordVisible =
-                                        !cPasswordVisible;
+                                        cPasswordVisible = !cPasswordVisible;
                                       });
                                     }),
                                 border: InputBorder.none))),
@@ -178,53 +177,44 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                             minimumSize: Size(double.infinity, 54),
                             backgroundColor: Color(0xffE53935),
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(10))),
+                                borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
-
                           if (passwordTC.text.isEmpty) {
-                            Utils.toastMessage(
-                                "Please enter your password ");
+                            Utils.toastMessage("Please enter your password ");
                             return;
                           }
                           if (cPasswordTC.text.isEmpty) {
-                            Utils.toastMessage(
-                                "Please confirm your password ");
+                            Utils.toastMessage("Please confirm your password ");
                             return;
                           }
                           if (!Utils.isPasswordValid(passwordTC.text)) {
-                            Utils.toastMessage(
-                                "Please enter valid password ");
+                            Utils.toastMessage("Please enter valid password ");
                             return;
                           }
 
                           if (passwordTC.text != cPasswordTC.text) {
-                            Utils.toastMessage(
-                                "Please confirm your password");
+                            Utils.toastMessage("Please confirm your password");
                             return;
                           }
 
-                        /*  context.read<CreateNewPasswordScreen>().add(SignUpEvent(
-                              email: emailTC.text,
-                              password: passwordTC.text,
-                              firstName: firstName.text,
-                              lastName: lastName.text,
-                              countryCode: countryCode,
-                              country: country,
-                              mobile: mobileTC.text));*/
+                          context
+                              .read<CreateNewPasswordBloc>()
+                              .add(CreateNewPasswordEvent(
+                                email: email,
+                                password: passwordTC.text,
+                                cPassword: passwordTC.text,
+                              ));
                         },
                         child: Container(
                             child: Text(
-                              "CREATE NEW PASSWORD",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18),
-                            )))
+                          "CREATE NEW PASSWORD",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )))
                   ],
                 ),
                 SizedBox(
                   height: 20,
                 ),
-
               ],
             ),
           );
