@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nemo_client/nemo_client.dart';
 import 'package:flutter/material.dart';
 import 'package:nemo_flutter/ui/navigation/routes/routes.dart';
+import 'package:nemo_flutter/ui/screens/auth/create_new_password/bloc/create_new_password_bloc.dart';
+import 'package:nemo_flutter/ui/screens/auth/create_new_password/create_new_password_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/reset_password_screen.dart';
+import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/reset_password_otp_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/sign_in_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/signup/bloc/sign_up_bloc.dart';
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<SignInBloc>(create: (_) => SignInBloc()),
         BlocProvider<SignUpBloc>(create: (_) => SignUpBloc()),
         BlocProvider<ResetPasswordBloc>(create: (_) => ResetPasswordBloc()),
+        BlocProvider<CreateNewPasswordBloc>(create: (_) => CreateNewPasswordBloc()),
       ],
       child: MaterialApp(
         color: Colors.white,
@@ -88,10 +92,12 @@ class MyApp extends StatelessWidget {
           Routes.ONBOARD_SCREEN: (context) => const SignInScreen(),
           Routes.DASHBOARD_SCREEN: (context) => const DashboardScreen(),
           Routes.SIGN_UP_SCREEN: (context) => const SignUpScreen(),
-          Routes.RESET_SCREEN: (context) => const ResetPasswordScreen()
+          Routes.RESET_SCREEN: (context) => const ResetPasswordScreen(),
+          Routes.RESET_OTP_SCREEN: (context) => const ResetPasswordOtpScreen(),
+          Routes.CREATE_NEW_PASSWORD_SCREEN: (context) => const CreateNewPasswordScreen()
 
         },
-        home: const SplashScreen(),
+        home: const CreateNewPasswordScreen(),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:nemo_flutter/ui/screens/auth/signin/event/sign_in_event.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/state/sign_in_state.dart';
 
 import '../../../../../main.dart';
-import '../state/sign_in_state.dart';
+import '../state/reset_password_state.dart';
 
 class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
   ResetPasswordBloc() : super(ResetPasswordInitial()) {
