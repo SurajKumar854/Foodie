@@ -90,6 +90,46 @@ class FoodWhaleUserAuthEndpoint extends Endpoint {
     }
   }
 
+
+Future<Response>sendAccountVerifyOTPLink(Session session,String emailParam)async{
+ 
+   var otpCode=Utlis.generateOTP();
+   if(! await  isEmailExist(session,emailParam )) {
+   return Response(message: "Email doesn't exist..", status: false);
+  
+   }
+   else 
+   {
+  final smtpServer = SmtpServer('smtp.gmail.com',
+      username: 'ersuraj854@gmail.com', password: 'bpva nltv zdwl oysi');
+
+  final message = Message()
+    ..from = Address('ersuraj854@gmail.com', 'Foodie Support Team')
+    ..recipients.add(emailParam)
+    ..subject = 'Verify your account'    
+    ..text =  'Dear User,\n\n'
+              'You are receiving this email because a request was made to verification for your Foodie account. '
+              'Your OTP code for account verification  is: $otpCode\n\n'
+              'Thank you,\n'
+              'Foodie Support Team'
+    ..html = '<html><body><p>Dear User,</p>'
+              '<p>You are receiving this email because a request was made to verification for your Foodie account. '
+              '<p>Your OTP code for account verification is: <strong>$otpCode</strong></p>'
+              '<p>Thank you,<br>'
+              'Foodie Support Team</p></body></html>';
+
+  try {
+    final sendReport = await send(message, smtpServer);
+   
+  } catch (e) {
+    return  Response(message: "Error occured", status: false);
+  }
+
+   return  Response(message: otpCode, status: true);
+   
+    }
+  }
+
   Future<FoodWhaleUser?>signIn(Session session,String email,String password) async{
     var passwordDecrypt= await Utlis.generateHashPassword(password);
     var user=await FoodWhaleUser.db.find(session, where: (user) {
@@ -113,6 +153,29 @@ Future<Response>createNewPassword(Session session,String email, String password)
     user.first.password=await Utlis.generateHashPassword(password);
     FoodWhaleUser.db.updateRow(session,user.first);
     return Response(message: "Password created successfully", status: true);
+  }
+
+}
+
+
+Future<Response>verifyUserAccount(Session session,String email,String generatedOTP,String enteredOTP)async{
+ 
+  var user = await FoodWhaleUser.db.find(session,where: (p0) {
+    return p0.email.equals(email);
+  },limit: 1);
+
+
+  if(user.first==null){
+    return Response(message: "User doesn't exist", status: false);
+  }else {
+
+    if(generatedOTP!=enteredOTP){
+        return Response(message: "Incorrect OTP.", status: true);
+    }
+
+    user.first.isAccountVerified=true;
+    FoodWhaleUser.db.updateRow(session,user.first);
+    return Response(message: "Account verified successfully", status: true);
   }
 
 }

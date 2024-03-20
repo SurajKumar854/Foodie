@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nemo_client/nemo_client.dart';
 import 'package:flutter/material.dart';
 import 'package:nemo_flutter/ui/navigation/routes/routes.dart';
+import 'package:nemo_flutter/ui/screens/auth/account_verified_otp/account_verify_otp_screen.dart';
+import 'package:nemo_flutter/ui/screens/auth/account_verified_otp/bloc/account_verify_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/create_new_password/bloc/create_new_password_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/create_new_password/create_new_password_screen.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ResetPasswordBloc>(create: (_) => ResetPasswordBloc()),
         BlocProvider<ResetPasswordOTPBloc>(create: (_) => ResetPasswordOTPBloc()),
         BlocProvider<CreateNewPasswordBloc>(create: (_) => CreateNewPasswordBloc()),
+        BlocProvider<AccountVerifyBloc>(create: (_) => AccountVerifyBloc()),
       ],
       child: MaterialApp(
         color: Colors.white,
@@ -96,7 +99,8 @@ class MyApp extends StatelessWidget {
           Routes.SIGN_UP_SCREEN: (context) => const SignUpScreen(),
           Routes.RESET_SCREEN: (context) => const ResetPasswordScreen(),
           Routes.RESET_OTP_SCREEN: (context) => const ResetPasswordOtpScreen(),
-          Routes.CREATE_NEW_PASSWORD_SCREEN: (context) => const CreateNewPasswordScreen()
+          Routes.CREATE_NEW_PASSWORD_SCREEN: (context) => const CreateNewPasswordScreen(),
+          Routes.ACCOUNT_VERIFY_SCREEN: (context) => const AccountVerifyOtpScreen()
 
         },
         home: const SplashScreen(),

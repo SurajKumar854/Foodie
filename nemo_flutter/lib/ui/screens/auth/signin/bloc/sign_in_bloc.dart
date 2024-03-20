@@ -21,12 +21,31 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         if (result == null) {
           emit(SignInFail());
         } else {
-          emit(SignInSuccess());
+          if (!result.isAccountVerified) {
+            String? otp = await sendUserVerificationCodeEmail(result.email);
+            if (otp != null) {
+              emit(SignInAccountVerifySuccess(foodWhaleUser: result, otp: otp));
+            } else {
+              print("Fail to send account verification email");
+              emit(SignInFail());
+            }
+          } else {
+            emit(SignInSuccess(foodWhaleUser: result));
+          }
         }
       } catch (error) {
         print(error);
         emit(SignInFail());
       }
     });
+  }
+
+  Future<String?> sendUserVerificationCodeEmail(String email) async {
+    var result = await client.foodWhaleUserAuth.sendAccountVerifyOTPLink(email);
+    if (result.status) {
+      return result.message;
+    } else {
+      return null;
+    }
   }
 }

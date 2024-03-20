@@ -166,6 +166,25 @@ class Endpoints extends _i1.EndpointDispatch {
             params['emailParam'],
           ),
         ),
+        'sendAccountVerifyOTPLink': _i1.MethodConnector(
+          name: 'sendAccountVerifyOTPLink',
+          params: {
+            'emailParam': _i1.ParameterDescription(
+              name: 'emailParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodWhaleUserAuth'] as _i3.FoodWhaleUserAuthEndpoint)
+                  .sendAccountVerifyOTPLink(
+            session,
+            params['emailParam'],
+          ),
+        ),
         'signIn': _i1.MethodConnector(
           name: 'signIn',
           params: {
@@ -214,6 +233,37 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['email'],
             params['password'],
+          ),
+        ),
+        'verifyUserAccount': _i1.MethodConnector(
+          name: 'verifyUserAccount',
+          params: {
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'generatedOTP': _i1.ParameterDescription(
+              name: 'generatedOTP',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'enteredOTP': _i1.ParameterDescription(
+              name: 'enteredOTP',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodWhaleUserAuth'] as _i3.FoodWhaleUserAuthEndpoint)
+                  .verifyUserAccount(
+            session,
+            params['email'],
+            params['generatedOTP'],
+            params['enteredOTP'],
           ),
         ),
       },

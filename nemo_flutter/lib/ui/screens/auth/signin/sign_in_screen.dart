@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nemo_flutter/ui/common/widget/app_bar.dart';
 import 'package:nemo_flutter/ui/navigation/routes/routes.dart';
+import 'package:nemo_flutter/ui/screens/auth/account_verified_otp/models/account_verification.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/event/sign_in_event.dart';
 import 'package:nemo_flutter/ui/screens/auth/signin/state/sign_in_state.dart';
@@ -120,16 +121,20 @@ class _SignInScreenState extends State<SignInScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                           InkWell(child:  Text(
-                             "Forgot password?",
-                             textAlign: TextAlign.end,
-                             style: TextStyle(
-                                 color: Colors.grey,
-                                 fontSize: 18,
-                                 fontWeight: FontWeight.bold),
-                           ),onTap: (){
-                             Navigator.pushNamed(context, Routes.RESET_SCREEN);
-                           },),
+                            InkWell(
+                              child: Text(
+                                "Forgot password?",
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, Routes.RESET_SCREEN);
+                              },
+                            ),
                           ],
                         )
                       ],
@@ -206,6 +211,12 @@ class _SignInScreenState extends State<SignInScreen> {
           if (state is SignInFail) {
             Navigator.pop(context);
             Utils.toastMessage("Incorrect Email/Password. Please try again");
+          }
+          if (state is SignInAccountVerifySuccess) {
+            Utils.toastMessage("Please verify your account..");
+            Navigator.pushNamed(context, Routes.ACCOUNT_VERIFY_SCREEN,
+                arguments: AccountVerificationData(
+                    otp: state.otp, userData: state.foodWhaleUser));
           }
 
           if (state is SignInSuccess) {

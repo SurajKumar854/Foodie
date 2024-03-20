@@ -76,6 +76,13 @@ class EndpointFoodWhaleUserAuth extends _i1.EndpointRef {
         {'emailParam': emailParam},
       );
 
+  _i2.Future<_i3.Response> sendAccountVerifyOTPLink(String emailParam) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodWhaleUserAuth',
+        'sendAccountVerifyOTPLink',
+        {'emailParam': emailParam},
+      );
+
   _i2.Future<_i4.FoodWhaleUser?> signIn(
     String email,
     String password,
@@ -99,6 +106,21 @@ class EndpointFoodWhaleUserAuth extends _i1.EndpointRef {
         {
           'email': email,
           'password': password,
+        },
+      );
+
+  _i2.Future<_i3.Response> verifyUserAccount(
+    String email,
+    String generatedOTP,
+    String enteredOTP,
+  ) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodWhaleUserAuth',
+        'verifyUserAccount',
+        {
+          'email': email,
+          'generatedOTP': generatedOTP,
+          'enteredOTP': enteredOTP,
         },
       );
 }

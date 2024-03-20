@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:nemo_flutter/ui/screens/auth/account_verified_otp/bloc/account_verify_bloc.dart';
+import 'package:nemo_flutter/ui/screens/auth/account_verified_otp/models/account_verification.dart';
+import 'package:nemo_flutter/ui/screens/auth/account_verified_otp/state/account_verify_state.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/bloc/reset_password_bloc.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password/event/reset_password_event.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/bloc/reset_password_otp_bloc.dart';
-import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/event/resend_otp_event.dart';
-import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/state/resend_otp_password_state.dart';
 import 'package:nemo_flutter/ui/screens/auth/reset_password_otp/state/reset_password_otp_state.dart';
 import 'package:nemo_flutter/utils/utils.dart';
 import '../../../../../main.dart';
@@ -15,23 +16,23 @@ import '../../../common/widget/app_bar.dart';
 import '../../../navigation/routes/routes.dart';
 import '../reset_password/models/ResetPassword.dart';
 import '../signin/widget/sign_in_loading_screen.dart';
-import 'event/reset_password_otp_event.dart';
+import 'event/account_verify_otp_event.dart';
 
-class ResetPasswordOtpScreen extends StatefulWidget {
-  const ResetPasswordOtpScreen({super.key});
+class AccountVerifyOtpScreen extends StatefulWidget {
+  const AccountVerifyOtpScreen({super.key});
 
   @override
-  State<ResetPasswordOtpScreen> createState() => _ResetPasswordOtpScreenState();
+  State<AccountVerifyOtpScreen> createState() => _AccountVerifyOtpScreen();
 }
 
-class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen> {
-  String titleBar = "Forgot Password";
+class _AccountVerifyOtpScreen extends State<AccountVerifyOtpScreen> {
+  String titleBar = "Verify Account";
   double bodyPadding = 16;
   var emailTC = TextEditingController();
   var errorEmailMsg;
   String email = "";
   String otp = "";
-  ResetPassword? resetPassword;
+  AccountVerificationData? accountVerificationData;
 
   @override
   void initState() {
@@ -40,13 +41,13 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    resetPassword = ModalRoute.of(context)!.settings.arguments as ResetPassword;
-    otp = resetPassword!.otp;
-    email = resetPassword!.email;
+    accountVerificationData = ModalRoute.of(context)!.settings.arguments as AccountVerificationData;
+    otp = accountVerificationData!.otp;
+    email = accountVerificationData!.userData.email;
     return Scaffold(
         appBar: FoodieAppbar(title: titleBar),
-        body: BlocConsumer<ResetPasswordOTPBloc, ResetPasswordOTPState>(
-            builder: (BuildContext context, ResetPasswordOTPState state) {
+        body: BlocConsumer<AccountVerifyBloc, AccountVerifyState>(
+            builder: (BuildContext context, AccountVerifyState state) {
           return Container(
             padding: EdgeInsets.all(bodyPadding),
             child: Column(
@@ -76,8 +77,8 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen> {
                   },
                   //runs when every textfield is filled
                   onSubmit: (String verificationCode) {
-                    context.read<ResetPasswordOTPBloc>().add(
-                        ResetPasswordOTPEvent(
+                    context.read<AccountVerifyBloc>().add(
+                        AccountVerifyOtpEvent(
                             email: email,
                             otp: otp,
                             enteredOTP: verificationCode));
@@ -86,60 +87,23 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Didn't received code?",
-                          style: TextStyle(color: Colors.black),
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          context
-                              .read<ResetPasswordOTPBloc>()
-                              .add(ResendOTPEvent(email: email));
-                        },
-                        child: const Text(
-                          "Request again",
-                          style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontWeight: FontWeight.bold),
-                        ))
-                  ],
-                )
               ],
             ),
           );
-        }, listener: (BuildContext context, ResetPasswordOTPState state) {
-          if (state is ResetPasswordOTPLoading) {
+        }, listener: (BuildContext context, AccountVerifyState state) {
+          if (state is AccountVerifyLoading) {
             Navigator.of(context).push(SignInLoadingScreen());
           }
 
-          if (state is ResendPasswordOTPLoading) {
-            Navigator.of(context).push(SignInLoadingScreen());
-          }
-          if (state is ResendPasswordOTPSuccess) {
-
-            Navigator.pop(context);
-            Utils.toastMessage("OTP sent..");
-          }
-          if (state is ResendPasswordOTPFail) {
-            Utils.toastMessage(state.message);
-            Navigator.pop(context);
-          }
-
-          if (state is ResetPasswordOTPFail) {
+          if (state is AccountVerifyFail) {
             Navigator.pop(context);
             Utils.toastMessage(state.message);
           }
 
-          if (state is ResetPasswordOTPSuccess) {
+          if (state is AccountVerifySuccess) {
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.CREATE_NEW_PASSWORD_SCREEN,
-                arguments: email);
+            Utils.toastMessage(state.message);
+            Navigator.pushNamed(context, Routes.DASHBOARD_SCREEN);
           }
         }));
   }

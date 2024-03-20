@@ -10,6 +10,8 @@ class ResetPasswordOTPInitial extends ResetPasswordOTPState{
 class ResetPasswordOTPLoading extends ResetPasswordOTPState{
 }
 
+
+
 class ResetPasswordOTPFail extends ResetPasswordOTPState{
   String message;
 
