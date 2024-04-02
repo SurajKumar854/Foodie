@@ -8,4 +8,5 @@ class Routes {
   static final String CREATE_NEW_PASSWORD_SCREEN = "create_new_password_screen";
 
   static final String ACCOUNT_VERIFY_SCREEN = "account_verify_screen";
+  static final String ADD_RESTAURANT = "add_restaurants";
 }

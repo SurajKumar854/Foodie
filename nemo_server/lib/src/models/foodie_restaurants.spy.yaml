@@ -9,7 +9,7 @@ fields :
   mobileNo: String
   password: String
   addressGeoLat: double
-  addressGeoLong: String
+  addressGeoLong: double
   isAccountVerified: bool
   
 

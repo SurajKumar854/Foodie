@@ -13,8 +13,9 @@ import 'dart:async' as _i2;
 import 'package:nemo_client/src/protocol/response.dart' as _i3;
 import 'package:nemo_client/src/protocol/food_whale_users.dart' as _i4;
 import 'package:nemo_client/src/protocol/foodie_admin.dart' as _i5;
-import 'package:nemo_client/src/protocol/notes.dart' as _i6;
-import 'protocol.dart' as _i7;
+import 'package:nemo_client/src/protocol/foodie_restaurants.dart' as _i6;
+import 'package:nemo_client/src/protocol/notes.dart' as _i7;
+import 'protocol.dart' as _i8;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -217,6 +218,96 @@ class EndpointFoodieAdminAuth extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointFoodieRestaurantsRepo extends _i1.EndpointRef {
+  EndpointFoodieRestaurantsRepo(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'foodieRestaurantsRepo';
+
+  _i2.Future<_i3.Response> signup(_i6.FoodieRestaurants foodieRestaurants) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieRestaurantsRepo',
+        'signup',
+        {'foodieRestaurants': foodieRestaurants},
+      );
+
+  _i2.Future<bool> isEmailExist(String emailParam) =>
+      caller.callServerEndpoint<bool>(
+        'foodieRestaurantsRepo',
+        'isEmailExist',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<bool> isPhoneExist(
+    String countryCodeParam,
+    String phoneParam,
+  ) =>
+      caller.callServerEndpoint<bool>(
+        'foodieRestaurantsRepo',
+        'isPhoneExist',
+        {
+          'countryCodeParam': countryCodeParam,
+          'phoneParam': phoneParam,
+        },
+      );
+
+  _i2.Future<_i3.Response> sendResetPasswordLink(String emailParam) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieRestaurantsRepo',
+        'sendResetPasswordLink',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<_i3.Response> sendAccountVerifyOTPLink(String emailParam) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieRestaurantsRepo',
+        'sendAccountVerifyOTPLink',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<_i6.FoodieRestaurants?> signIn(
+    String email,
+    String password,
+  ) =>
+      caller.callServerEndpoint<_i6.FoodieRestaurants?>(
+        'foodieRestaurantsRepo',
+        'signIn',
+        {
+          'email': email,
+          'password': password,
+        },
+      );
+
+  _i2.Future<_i3.Response> createNewPassword(
+    String email,
+    String password,
+  ) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieRestaurantsRepo',
+        'createNewPassword',
+        {
+          'email': email,
+          'password': password,
+        },
+      );
+
+  _i2.Future<_i3.Response> verifyUserAccount(
+    String email,
+    String generatedOTP,
+    String enteredOTP,
+  ) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieRestaurantsRepo',
+        'verifyUserAccount',
+        {
+          'email': email,
+          'generatedOTP': generatedOTP,
+          'enteredOTP': enteredOTP,
+        },
+      );
+}
+
+/// {@category Endpoint}
 class EndpointNote extends _i1.EndpointRef {
   EndpointNote(_i1.EndpointCaller caller) : super(caller);
 
@@ -254,7 +345,7 @@ class EndpointNote extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<void> createNote(_i6.Notes note) =>
+  _i2.Future<void> createNote(_i7.Notes note) =>
       caller.callServerEndpoint<void>(
         'note',
         'createNote',
@@ -271,7 +362,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i7.Protocol(),
+          _i8.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -280,6 +371,7 @@ class Client extends _i1.ServerpodClient {
     example = EndpointExample(this);
     foodWhaleUserAuth = EndpointFoodWhaleUserAuth(this);
     foodieAdminAuth = EndpointFoodieAdminAuth(this);
+    foodieRestaurantsRepo = EndpointFoodieRestaurantsRepo(this);
     note = EndpointNote(this);
   }
 
@@ -289,6 +381,8 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointFoodieAdminAuth foodieAdminAuth;
 
+  late final EndpointFoodieRestaurantsRepo foodieRestaurantsRepo;
+
   late final EndpointNote note;
 
   @override
@@ -296,6 +390,7 @@ class Client extends _i1.ServerpodClient {
         'example': example,
         'foodWhaleUserAuth': foodWhaleUserAuth,
         'foodieAdminAuth': foodieAdminAuth,
+        'foodieRestaurantsRepo': foodieRestaurantsRepo,
         'note': note,
       };
 

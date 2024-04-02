@@ -35,7 +35,7 @@ abstract class FoodieRestaurants extends _i1.TableRow {
     required String mobileNo,
     required String password,
     required double addressGeoLat,
-    required String addressGeoLong,
+    required double addressGeoLong,
     required bool isAccountVerified,
   }) = _FoodieRestaurantsImpl;
 
@@ -62,7 +62,7 @@ abstract class FoodieRestaurants extends _i1.TableRow {
       addressGeoLat: serializationManager
           .deserialize<double>(jsonSerialization['addressGeoLat']),
       addressGeoLong: serializationManager
-          .deserialize<String>(jsonSerialization['addressGeoLong']),
+          .deserialize<double>(jsonSerialization['addressGeoLong']),
       isAccountVerified: serializationManager
           .deserialize<bool>(jsonSerialization['isAccountVerified']),
     );
@@ -88,7 +88,7 @@ abstract class FoodieRestaurants extends _i1.TableRow {
 
   double addressGeoLat;
 
-  String addressGeoLong;
+  double addressGeoLong;
 
   bool isAccountVerified;
 
@@ -105,7 +105,7 @@ abstract class FoodieRestaurants extends _i1.TableRow {
     String? mobileNo,
     String? password,
     double? addressGeoLat,
-    String? addressGeoLong,
+    double? addressGeoLong,
     bool? isAccountVerified,
   });
   @override
@@ -360,7 +360,7 @@ class _FoodieRestaurantsImpl extends FoodieRestaurants {
     required String mobileNo,
     required String password,
     required double addressGeoLat,
-    required String addressGeoLong,
+    required double addressGeoLong,
     required bool isAccountVerified,
   }) : super._(
           id: id,
@@ -387,7 +387,7 @@ class _FoodieRestaurantsImpl extends FoodieRestaurants {
     String? mobileNo,
     String? password,
     double? addressGeoLat,
-    String? addressGeoLong,
+    double? addressGeoLong,
     bool? isAccountVerified,
   }) {
     return FoodieRestaurants(
@@ -441,7 +441,7 @@ class FoodieRestaurantsTable extends _i1.Table {
       'addressGeoLat',
       this,
     );
-    addressGeoLong = _i1.ColumnString(
+    addressGeoLong = _i1.ColumnDouble(
       'addressGeoLong',
       this,
     );
@@ -467,7 +467,7 @@ class FoodieRestaurantsTable extends _i1.Table {
 
   late final _i1.ColumnDouble addressGeoLat;
 
-  late final _i1.ColumnString addressGeoLong;
+  late final _i1.ColumnDouble addressGeoLong;
 
   late final _i1.ColumnBool isAccountVerified;
 

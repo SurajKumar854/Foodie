@@ -13,11 +13,13 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'example.dart' as _i2;
 import 'food_whale_users.dart' as _i3;
 import 'foodie_admin.dart' as _i4;
-import 'notes.dart' as _i5;
-import 'response.dart' as _i6;
+import 'foodie_restaurants.dart' as _i5;
+import 'notes.dart' as _i6;
+import 'response.dart' as _i7;
 export 'example.dart';
 export 'food_whale_users.dart';
 export 'foodie_admin.dart';
+export 'foodie_restaurants.dart';
 export 'notes.dart';
 export 'response.dart';
 export 'client.dart';
@@ -49,11 +51,14 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i4.FoodieAdmin) {
       return _i4.FoodieAdmin.fromJson(data, this) as T;
     }
-    if (t == _i5.Notes) {
-      return _i5.Notes.fromJson(data, this) as T;
+    if (t == _i5.FoodieRestaurants) {
+      return _i5.FoodieRestaurants.fromJson(data, this) as T;
     }
-    if (t == _i6.Response) {
-      return _i6.Response.fromJson(data, this) as T;
+    if (t == _i6.Notes) {
+      return _i6.Notes.fromJson(data, this) as T;
+    }
+    if (t == _i7.Response) {
+      return _i7.Response.fromJson(data, this) as T;
     }
     if (t == _i1.getType<_i2.Example?>()) {
       return (data != null ? _i2.Example.fromJson(data, this) : null) as T;
@@ -65,11 +70,15 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i4.FoodieAdmin?>()) {
       return (data != null ? _i4.FoodieAdmin.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i5.Notes?>()) {
-      return (data != null ? _i5.Notes.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i5.FoodieRestaurants?>()) {
+      return (data != null ? _i5.FoodieRestaurants.fromJson(data, this) : null)
+          as T;
     }
-    if (t == _i1.getType<_i6.Response?>()) {
-      return (data != null ? _i6.Response.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i6.Notes?>()) {
+      return (data != null ? _i6.Notes.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i7.Response?>()) {
+      return (data != null ? _i7.Response.fromJson(data, this) : null) as T;
     }
     return super.deserialize<T>(data, t);
   }
@@ -85,10 +94,13 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i4.FoodieAdmin) {
       return 'FoodieAdmin';
     }
-    if (data is _i5.Notes) {
+    if (data is _i5.FoodieRestaurants) {
+      return 'FoodieRestaurants';
+    }
+    if (data is _i6.Notes) {
       return 'Notes';
     }
-    if (data is _i6.Response) {
+    if (data is _i7.Response) {
       return 'Response';
     }
     return super.getClassNameForObject(data);
@@ -105,11 +117,14 @@ class Protocol extends _i1.SerializationManager {
     if (data['className'] == 'FoodieAdmin') {
       return deserialize<_i4.FoodieAdmin>(data['data']);
     }
+    if (data['className'] == 'FoodieRestaurants') {
+      return deserialize<_i5.FoodieRestaurants>(data['data']);
+    }
     if (data['className'] == 'Notes') {
-      return deserialize<_i5.Notes>(data['data']);
+      return deserialize<_i6.Notes>(data['data']);
     }
     if (data['className'] == 'Response') {
-      return deserialize<_i6.Response>(data['data']);
+      return deserialize<_i7.Response>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
