@@ -12,8 +12,9 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:nemo_client/src/protocol/response.dart' as _i3;
 import 'package:nemo_client/src/protocol/food_whale_users.dart' as _i4;
-import 'package:nemo_client/src/protocol/notes.dart' as _i5;
-import 'protocol.dart' as _i6;
+import 'package:nemo_client/src/protocol/foodie_admin.dart' as _i5;
+import 'package:nemo_client/src/protocol/notes.dart' as _i6;
+import 'protocol.dart' as _i7;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -126,6 +127,96 @@ class EndpointFoodWhaleUserAuth extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointFoodieAdminAuth extends _i1.EndpointRef {
+  EndpointFoodieAdminAuth(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'foodieAdminAuth';
+
+  _i2.Future<_i3.Response> signup(_i5.FoodieAdmin foodieAdmin) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieAdminAuth',
+        'signup',
+        {'foodieAdmin': foodieAdmin},
+      );
+
+  _i2.Future<bool> isEmailExist(String emailParam) =>
+      caller.callServerEndpoint<bool>(
+        'foodieAdminAuth',
+        'isEmailExist',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<bool> isPhoneExist(
+    String countryCodeParam,
+    String phoneParam,
+  ) =>
+      caller.callServerEndpoint<bool>(
+        'foodieAdminAuth',
+        'isPhoneExist',
+        {
+          'countryCodeParam': countryCodeParam,
+          'phoneParam': phoneParam,
+        },
+      );
+
+  _i2.Future<_i3.Response> sendResetPasswordLink(String emailParam) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieAdminAuth',
+        'sendResetPasswordLink',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<_i3.Response> sendAccountVerifyOTPLink(String emailParam) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieAdminAuth',
+        'sendAccountVerifyOTPLink',
+        {'emailParam': emailParam},
+      );
+
+  _i2.Future<_i5.FoodieAdmin?> signIn(
+    String email,
+    String password,
+  ) =>
+      caller.callServerEndpoint<_i5.FoodieAdmin?>(
+        'foodieAdminAuth',
+        'signIn',
+        {
+          'email': email,
+          'password': password,
+        },
+      );
+
+  _i2.Future<_i3.Response> createNewPassword(
+    String email,
+    String password,
+  ) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieAdminAuth',
+        'createNewPassword',
+        {
+          'email': email,
+          'password': password,
+        },
+      );
+
+  _i2.Future<_i3.Response> verifyUserAccount(
+    String email,
+    String generatedOTP,
+    String enteredOTP,
+  ) =>
+      caller.callServerEndpoint<_i3.Response>(
+        'foodieAdminAuth',
+        'verifyUserAccount',
+        {
+          'email': email,
+          'generatedOTP': generatedOTP,
+          'enteredOTP': enteredOTP,
+        },
+      );
+}
+
+/// {@category Endpoint}
 class EndpointNote extends _i1.EndpointRef {
   EndpointNote(_i1.EndpointCaller caller) : super(caller);
 
@@ -163,7 +254,7 @@ class EndpointNote extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<void> createNote(_i5.Notes note) =>
+  _i2.Future<void> createNote(_i6.Notes note) =>
       caller.callServerEndpoint<void>(
         'note',
         'createNote',
@@ -180,7 +271,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i6.Protocol(),
+          _i7.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -188,6 +279,7 @@ class Client extends _i1.ServerpodClient {
         ) {
     example = EndpointExample(this);
     foodWhaleUserAuth = EndpointFoodWhaleUserAuth(this);
+    foodieAdminAuth = EndpointFoodieAdminAuth(this);
     note = EndpointNote(this);
   }
 
@@ -195,12 +287,15 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointFoodWhaleUserAuth foodWhaleUserAuth;
 
+  late final EndpointFoodieAdminAuth foodieAdminAuth;
+
   late final EndpointNote note;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'example': example,
         'foodWhaleUserAuth': foodWhaleUserAuth,
+        'foodieAdminAuth': foodieAdminAuth,
         'note': note,
       };
 
