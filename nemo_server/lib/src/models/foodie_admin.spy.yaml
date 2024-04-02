@@ -1,0 +1,14 @@
+class: FoodieAdmin
+table : foodie_admin
+fields :
+  firstName: String
+  lastName: String
+  email: String
+  countryCode: String
+  mobileNo: String
+  password: String
+  country: String
+  isAccountVerified: bool
+  
+
+

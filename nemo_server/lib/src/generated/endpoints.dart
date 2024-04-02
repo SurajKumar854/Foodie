@@ -11,9 +11,11 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/example_endpoint.dart' as _i2;
 import '../endpoints/foodhwhale_user_auth_endpoint.dart' as _i3;
-import '../endpoints/note_endpoint.dart' as _i4;
-import 'package:nemo_server/src/generated/food_whale_users.dart' as _i5;
-import 'package:nemo_server/src/generated/notes.dart' as _i6;
+import '../endpoints/foodie_admin_auth_endpoint.dart' as _i4;
+import '../endpoints/note_endpoint.dart' as _i5;
+import 'package:nemo_server/src/generated/food_whale_users.dart' as _i6;
+import 'package:nemo_server/src/generated/foodie_admin.dart' as _i7;
+import 'package:nemo_server/src/generated/notes.dart' as _i8;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -31,7 +33,13 @@ class Endpoints extends _i1.EndpointDispatch {
           'foodWhaleUserAuth',
           null,
         ),
-      'note': _i4.NoteEndpoint()
+      'foodieAdminAuth': _i4.FoodieAdminAuthEndpoint()
+        ..initialize(
+          server,
+          'foodieAdminAuth',
+          null,
+        ),
+      'note': _i5.NoteEndpoint()
         ..initialize(
           server,
           'note',
@@ -89,7 +97,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'foodWhaleUser': _i1.ParameterDescription(
               name: 'foodWhaleUser',
-              type: _i1.getType<_i5.FoodWhaleUser>(),
+              type: _i1.getType<_i6.FoodWhaleUser>(),
               nullable: false,
             )
           },
@@ -268,6 +276,194 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['foodieAdminAuth'] = _i1.EndpointConnector(
+      name: 'foodieAdminAuth',
+      endpoint: endpoints['foodieAdminAuth']!,
+      methodConnectors: {
+        'signup': _i1.MethodConnector(
+          name: 'signup',
+          params: {
+            'foodieAdmin': _i1.ParameterDescription(
+              name: 'foodieAdmin',
+              type: _i1.getType<_i7.FoodieAdmin>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .signup(
+            session,
+            params['foodieAdmin'],
+          ),
+        ),
+        'isEmailExist': _i1.MethodConnector(
+          name: 'isEmailExist',
+          params: {
+            'emailParam': _i1.ParameterDescription(
+              name: 'emailParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .isEmailExist(
+            session,
+            params['emailParam'],
+          ),
+        ),
+        'isPhoneExist': _i1.MethodConnector(
+          name: 'isPhoneExist',
+          params: {
+            'countryCodeParam': _i1.ParameterDescription(
+              name: 'countryCodeParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'phoneParam': _i1.ParameterDescription(
+              name: 'phoneParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .isPhoneExist(
+            session,
+            params['countryCodeParam'],
+            params['phoneParam'],
+          ),
+        ),
+        'sendResetPasswordLink': _i1.MethodConnector(
+          name: 'sendResetPasswordLink',
+          params: {
+            'emailParam': _i1.ParameterDescription(
+              name: 'emailParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .sendResetPasswordLink(
+            session,
+            params['emailParam'],
+          ),
+        ),
+        'sendAccountVerifyOTPLink': _i1.MethodConnector(
+          name: 'sendAccountVerifyOTPLink',
+          params: {
+            'emailParam': _i1.ParameterDescription(
+              name: 'emailParam',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .sendAccountVerifyOTPLink(
+            session,
+            params['emailParam'],
+          ),
+        ),
+        'signIn': _i1.MethodConnector(
+          name: 'signIn',
+          params: {
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'password': _i1.ParameterDescription(
+              name: 'password',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .signIn(
+            session,
+            params['email'],
+            params['password'],
+          ),
+        ),
+        'createNewPassword': _i1.MethodConnector(
+          name: 'createNewPassword',
+          params: {
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'password': _i1.ParameterDescription(
+              name: 'password',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .createNewPassword(
+            session,
+            params['email'],
+            params['password'],
+          ),
+        ),
+        'verifyUserAccount': _i1.MethodConnector(
+          name: 'verifyUserAccount',
+          params: {
+            'email': _i1.ParameterDescription(
+              name: 'email',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'generatedOTP': _i1.ParameterDescription(
+              name: 'generatedOTP',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'enteredOTP': _i1.ParameterDescription(
+              name: 'enteredOTP',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieAdminAuth'] as _i4.FoodieAdminAuthEndpoint)
+                  .verifyUserAccount(
+            session,
+            params['email'],
+            params['generatedOTP'],
+            params['enteredOTP'],
+          ),
+        ),
+      },
+    );
     connectors['note'] = _i1.EndpointConnector(
       name: 'note',
       endpoint: endpoints['note']!,
@@ -285,7 +481,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['note'] as _i4.NoteEndpoint).hello(
+              (endpoints['note'] as _i5.NoteEndpoint).hello(
             session,
             params['name'],
           ),
@@ -303,7 +499,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['note'] as _i4.NoteEndpoint).shubham(
+              (endpoints['note'] as _i5.NoteEndpoint).shubham(
             session,
             params['name'],
           ),
@@ -321,7 +517,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['note'] as _i4.NoteEndpoint).suraj(
+              (endpoints['note'] as _i5.NoteEndpoint).suraj(
             session,
             params['name'],
           ),
@@ -344,7 +540,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['note'] as _i4.NoteEndpoint).sum(
+              (endpoints['note'] as _i5.NoteEndpoint).sum(
             session,
             params['a'],
             params['b'],
@@ -355,7 +551,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'note': _i1.ParameterDescription(
               name: 'note',
-              type: _i1.getType<_i6.Notes>(),
+              type: _i1.getType<_i8.Notes>(),
               nullable: false,
             )
           },
@@ -363,7 +559,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['note'] as _i4.NoteEndpoint).createNote(
+              (endpoints['note'] as _i5.NoteEndpoint).createNote(
             session,
             params['note'],
           ),

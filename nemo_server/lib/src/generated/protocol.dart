@@ -13,10 +13,12 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'example.dart' as _i3;
 import 'food_whale_users.dart' as _i4;
-import 'notes.dart' as _i5;
-import 'response.dart' as _i6;
+import 'foodie_admin.dart' as _i5;
+import 'notes.dart' as _i6;
+import 'response.dart' as _i7;
 export 'example.dart';
 export 'food_whale_users.dart';
+export 'foodie_admin.dart';
 export 'notes.dart';
 export 'response.dart';
 
@@ -111,6 +113,86 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
+      name: 'foodie_admin',
+      dartName: 'FoodieAdmin',
+      schema: 'public',
+      module: 'nemo',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'foodie_admin_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'firstName',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'lastName',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'email',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'countryCode',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'mobileNo',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'password',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'country',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'isAccountVerified',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'foodie_admin_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
       name: 'notes',
       dartName: 'Notes',
       schema: 'public',
@@ -166,11 +248,14 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i4.FoodWhaleUser) {
       return _i4.FoodWhaleUser.fromJson(data, this) as T;
     }
-    if (t == _i5.Notes) {
-      return _i5.Notes.fromJson(data, this) as T;
+    if (t == _i5.FoodieAdmin) {
+      return _i5.FoodieAdmin.fromJson(data, this) as T;
     }
-    if (t == _i6.Response) {
-      return _i6.Response.fromJson(data, this) as T;
+    if (t == _i6.Notes) {
+      return _i6.Notes.fromJson(data, this) as T;
+    }
+    if (t == _i7.Response) {
+      return _i7.Response.fromJson(data, this) as T;
     }
     if (t == _i1.getType<_i3.Example?>()) {
       return (data != null ? _i3.Example.fromJson(data, this) : null) as T;
@@ -179,11 +264,14 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data != null ? _i4.FoodWhaleUser.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i5.Notes?>()) {
-      return (data != null ? _i5.Notes.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i5.FoodieAdmin?>()) {
+      return (data != null ? _i5.FoodieAdmin.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i6.Response?>()) {
-      return (data != null ? _i6.Response.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i6.Notes?>()) {
+      return (data != null ? _i6.Notes.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i7.Response?>()) {
+      return (data != null ? _i7.Response.fromJson(data, this) : null) as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -199,10 +287,13 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i4.FoodWhaleUser) {
       return 'FoodWhaleUser';
     }
-    if (data is _i5.Notes) {
+    if (data is _i5.FoodieAdmin) {
+      return 'FoodieAdmin';
+    }
+    if (data is _i6.Notes) {
       return 'Notes';
     }
-    if (data is _i6.Response) {
+    if (data is _i7.Response) {
       return 'Response';
     }
     return super.getClassNameForObject(data);
@@ -216,11 +307,14 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'FoodWhaleUser') {
       return deserialize<_i4.FoodWhaleUser>(data['data']);
     }
+    if (data['className'] == 'FoodieAdmin') {
+      return deserialize<_i5.FoodieAdmin>(data['data']);
+    }
     if (data['className'] == 'Notes') {
-      return deserialize<_i5.Notes>(data['data']);
+      return deserialize<_i6.Notes>(data['data']);
     }
     if (data['className'] == 'Response') {
-      return deserialize<_i6.Response>(data['data']);
+      return deserialize<_i7.Response>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -236,8 +330,10 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (t) {
       case _i4.FoodWhaleUser:
         return _i4.FoodWhaleUser.t;
-      case _i5.Notes:
-        return _i5.Notes.t;
+      case _i5.FoodieAdmin:
+        return _i5.FoodieAdmin.t;
+      case _i6.Notes:
+        return _i6.Notes.t;
     }
     return null;
   }
