@@ -19,6 +19,15 @@ foodieAdminAuth:
   - signIn:
   - createNewPassword:
   - verifyUserAccount:
+foodieRestaurantsRepo:
+  - signup:
+  - isEmailExist:
+  - isPhoneExist:
+  - sendResetPasswordLink:
+  - sendAccountVerifyOTPLink:
+  - signIn:
+  - createNewPassword:
+  - verifyUserAccount:
 note:
   - hello:
   - shubham:

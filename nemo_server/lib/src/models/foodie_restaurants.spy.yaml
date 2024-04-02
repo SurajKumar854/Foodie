@@ -1,0 +1,17 @@
+class: FoodieRestaurants
+table : food_restaurants
+fields :
+  restaurantsName: String
+  restaurantsImage: String
+  address: String
+  email: String
+  countryCode: String
+  mobileNo: String
+  password: String
+  addressGeoLat: double
+  addressGeoLong: String
+  isAccountVerified: bool
+  
+
+
+
