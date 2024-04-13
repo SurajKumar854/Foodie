@@ -16,6 +16,7 @@ import 'foodie_admin.dart' as _i4;
 import 'foodie_restaurants.dart' as _i5;
 import 'notes.dart' as _i6;
 import 'response.dart' as _i7;
+import 'package:nemo_client/src/protocol/foodie_restaurants.dart' as _i8;
 export 'example.dart';
 export 'food_whale_users.dart';
 export 'foodie_admin.dart';
@@ -79,6 +80,11 @@ class Protocol extends _i1.SerializationManager {
     }
     if (t == _i1.getType<_i7.Response?>()) {
       return (data != null ? _i7.Response.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i8.FoodieRestaurants>) {
+      return (data as List)
+          .map((e) => deserialize<_i8.FoodieRestaurants>(e))
+          .toList() as dynamic;
     }
     return super.deserialize<T>(data, t);
   }

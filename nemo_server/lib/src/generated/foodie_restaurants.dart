@@ -20,8 +20,8 @@ abstract class FoodieRestaurants extends _i1.TableRow {
     required this.countryCode,
     required this.mobileNo,
     required this.password,
-    required this.addressGeoLat,
-    required this.addressGeoLong,
+    required this.addressgeolat,
+    required this.addressgeolong,
     required this.isAccountVerified,
   }) : super(id);
 
@@ -34,8 +34,8 @@ abstract class FoodieRestaurants extends _i1.TableRow {
     required String countryCode,
     required String mobileNo,
     required String password,
-    required double addressGeoLat,
-    required double addressGeoLong,
+    required double addressgeolat,
+    required double addressgeolong,
     required bool isAccountVerified,
   }) = _FoodieRestaurantsImpl;
 
@@ -59,10 +59,10 @@ abstract class FoodieRestaurants extends _i1.TableRow {
           .deserialize<String>(jsonSerialization['mobileNo']),
       password: serializationManager
           .deserialize<String>(jsonSerialization['password']),
-      addressGeoLat: serializationManager
-          .deserialize<double>(jsonSerialization['addressGeoLat']),
-      addressGeoLong: serializationManager
-          .deserialize<double>(jsonSerialization['addressGeoLong']),
+      addressgeolat: serializationManager
+          .deserialize<double>(jsonSerialization['addressgeolat']),
+      addressgeolong: serializationManager
+          .deserialize<double>(jsonSerialization['addressgeolong']),
       isAccountVerified: serializationManager
           .deserialize<bool>(jsonSerialization['isAccountVerified']),
     );
@@ -86,9 +86,9 @@ abstract class FoodieRestaurants extends _i1.TableRow {
 
   String password;
 
-  double addressGeoLat;
+  double addressgeolat;
 
-  double addressGeoLong;
+  double addressgeolong;
 
   bool isAccountVerified;
 
@@ -104,8 +104,8 @@ abstract class FoodieRestaurants extends _i1.TableRow {
     String? countryCode,
     String? mobileNo,
     String? password,
-    double? addressGeoLat,
-    double? addressGeoLong,
+    double? addressgeolat,
+    double? addressgeolong,
     bool? isAccountVerified,
   });
   @override
@@ -119,8 +119,8 @@ abstract class FoodieRestaurants extends _i1.TableRow {
       'countryCode': countryCode,
       'mobileNo': mobileNo,
       'password': password,
-      'addressGeoLat': addressGeoLat,
-      'addressGeoLong': addressGeoLong,
+      'addressgeolat': addressgeolat,
+      'addressgeolong': addressgeolong,
       'isAccountVerified': isAccountVerified,
     };
   }
@@ -137,8 +137,8 @@ abstract class FoodieRestaurants extends _i1.TableRow {
       'countryCode': countryCode,
       'mobileNo': mobileNo,
       'password': password,
-      'addressGeoLat': addressGeoLat,
-      'addressGeoLong': addressGeoLong,
+      'addressgeolat': addressgeolat,
+      'addressgeolong': addressgeolong,
       'isAccountVerified': isAccountVerified,
     };
   }
@@ -154,8 +154,8 @@ abstract class FoodieRestaurants extends _i1.TableRow {
       'countryCode': countryCode,
       'mobileNo': mobileNo,
       'password': password,
-      'addressGeoLat': addressGeoLat,
-      'addressGeoLong': addressGeoLong,
+      'addressgeolat': addressgeolat,
+      'addressgeolong': addressgeolong,
       'isAccountVerified': isAccountVerified,
     };
   }
@@ -191,11 +191,11 @@ abstract class FoodieRestaurants extends _i1.TableRow {
       case 'password':
         password = value;
         return;
-      case 'addressGeoLat':
-        addressGeoLat = value;
+      case 'addressgeolat':
+        addressgeolat = value;
         return;
-      case 'addressGeoLong':
-        addressGeoLong = value;
+      case 'addressgeolong':
+        addressgeolong = value;
         return;
       case 'isAccountVerified':
         isAccountVerified = value;
@@ -359,8 +359,8 @@ class _FoodieRestaurantsImpl extends FoodieRestaurants {
     required String countryCode,
     required String mobileNo,
     required String password,
-    required double addressGeoLat,
-    required double addressGeoLong,
+    required double addressgeolat,
+    required double addressgeolong,
     required bool isAccountVerified,
   }) : super._(
           id: id,
@@ -371,8 +371,8 @@ class _FoodieRestaurantsImpl extends FoodieRestaurants {
           countryCode: countryCode,
           mobileNo: mobileNo,
           password: password,
-          addressGeoLat: addressGeoLat,
-          addressGeoLong: addressGeoLong,
+          addressgeolat: addressgeolat,
+          addressgeolong: addressgeolong,
           isAccountVerified: isAccountVerified,
         );
 
@@ -386,8 +386,8 @@ class _FoodieRestaurantsImpl extends FoodieRestaurants {
     String? countryCode,
     String? mobileNo,
     String? password,
-    double? addressGeoLat,
-    double? addressGeoLong,
+    double? addressgeolat,
+    double? addressgeolong,
     bool? isAccountVerified,
   }) {
     return FoodieRestaurants(
@@ -399,8 +399,8 @@ class _FoodieRestaurantsImpl extends FoodieRestaurants {
       countryCode: countryCode ?? this.countryCode,
       mobileNo: mobileNo ?? this.mobileNo,
       password: password ?? this.password,
-      addressGeoLat: addressGeoLat ?? this.addressGeoLat,
-      addressGeoLong: addressGeoLong ?? this.addressGeoLong,
+      addressgeolat: addressgeolat ?? this.addressgeolat,
+      addressgeolong: addressgeolong ?? this.addressgeolong,
       isAccountVerified: isAccountVerified ?? this.isAccountVerified,
     );
   }
@@ -437,12 +437,12 @@ class FoodieRestaurantsTable extends _i1.Table {
       'password',
       this,
     );
-    addressGeoLat = _i1.ColumnDouble(
-      'addressGeoLat',
+    addressgeolat = _i1.ColumnDouble(
+      'addressgeolat',
       this,
     );
-    addressGeoLong = _i1.ColumnDouble(
-      'addressGeoLong',
+    addressgeolong = _i1.ColumnDouble(
+      'addressgeolong',
       this,
     );
     isAccountVerified = _i1.ColumnBool(
@@ -465,9 +465,9 @@ class FoodieRestaurantsTable extends _i1.Table {
 
   late final _i1.ColumnString password;
 
-  late final _i1.ColumnDouble addressGeoLat;
+  late final _i1.ColumnDouble addressgeolat;
 
-  late final _i1.ColumnDouble addressGeoLong;
+  late final _i1.ColumnDouble addressgeolong;
 
   late final _i1.ColumnBool isAccountVerified;
 
@@ -481,8 +481,8 @@ class FoodieRestaurantsTable extends _i1.Table {
         countryCode,
         mobileNo,
         password,
-        addressGeoLat,
-        addressGeoLong,
+        addressgeolat,
+        addressgeolong,
         isAccountVerified,
       ];
 }

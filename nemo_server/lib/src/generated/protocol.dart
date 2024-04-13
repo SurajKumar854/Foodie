@@ -17,6 +17,7 @@ import 'foodie_admin.dart' as _i5;
 import 'foodie_restaurants.dart' as _i6;
 import 'notes.dart' as _i7;
 import 'response.dart' as _i8;
+import 'package:nemo_server/src/generated/foodie_restaurants.dart' as _i9;
 export 'example.dart';
 export 'food_whale_users.dart';
 export 'foodie_admin.dart';
@@ -90,13 +91,13 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
-          name: 'addressGeoLat',
+          name: 'addressgeolat',
           columnType: _i2.ColumnType.doublePrecision,
           isNullable: false,
           dartType: 'double',
         ),
         _i2.ColumnDefinition(
-          name: 'addressGeoLong',
+          name: 'addressgeolong',
           columnType: _i2.ColumnType.doublePrecision,
           isNullable: false,
           dartType: 'double',
@@ -373,6 +374,11 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (t == _i1.getType<_i8.Response?>()) {
       return (data != null ? _i8.Response.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i9.FoodieRestaurants>) {
+      return (data as List)
+          .map((e) => deserialize<_i9.FoodieRestaurants>(e))
+          .toList() as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);

@@ -28,8 +28,8 @@ class RestaurantSignUpBloc extends Bloc<RestaurantSignUpEvent, RestaurantSignUpS
             mobileNo: event.mobile,
             password: event.email,
             restaurantsImage: event.restaurantImage,
-            addressGeoLat: event.restaurantLat,
-            addressGeoLong:  event.restaurantLong,
+            addressgeolat: event.restaurantLat,
+            addressgeolong:  event.restaurantLong,
             isAccountVerified: event.isVerified, address: event.restaurantAddress));
             
             if(result.status){

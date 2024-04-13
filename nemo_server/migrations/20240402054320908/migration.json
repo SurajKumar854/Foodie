@@ -1,0 +1,123 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "food_restaurants"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "food_restaurants",
+        "dartName": "FoodieRestaurants",
+        "module": "nemo",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('food_restaurants_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "restaurantsName",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "restaurantsImage",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "address",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "email",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "countryCode",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "mobileNo",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "password",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "addressGeoLat",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "addressGeoLong",
+            "columnType": 3,
+            "isNullable": false,
+            "dartType": "double"
+          },
+          {
+            "name": "isAccountVerified",
+            "columnType": 1,
+            "isNullable": false,
+            "dartType": "bool"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "food_restaurants_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column addressGeoLong of table food_restaurants is modified in a way that it must be deleted and recreated.",
+      "table": "food_restaurants",
+      "columns": [
+        "addressGeoLong"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"food_restaurants\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "food_restaurants",
+      "columns": [
+        "addressGeoLong"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

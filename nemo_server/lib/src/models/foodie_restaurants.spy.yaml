@@ -8,8 +8,8 @@ fields :
   countryCode: String
   mobileNo: String
   password: String
-  addressGeoLat: double
-  addressGeoLong: double
+  addressgeolat: double
+  addressgeolong: double
   isAccountVerified: bool
   
 

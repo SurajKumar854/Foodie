@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie_admin/main.dart';
 import 'package:foodie_admin/ui/navigation/routes/routes.dart';
+import 'package:foodie_admin/utils/utils.dart';
 
 import '../../common/colors/colors.dart';
 import '../../common/widget/app_bar.dart';
@@ -62,8 +64,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       height: 30,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.ADD_RESTAURANT);
+                      onTap: () async {
+                      Navigator.pushNamed(context, Routes.ADD_RESTAURANT);
+
                       },
                       child: Column(
                         children: [

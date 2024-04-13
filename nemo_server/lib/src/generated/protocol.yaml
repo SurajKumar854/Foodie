@@ -28,6 +28,7 @@ foodieRestaurantsRepo:
   - signIn:
   - createNewPassword:
   - verifyUserAccount:
+  - searchRestaurents:
 note:
   - hello:
   - shubham:

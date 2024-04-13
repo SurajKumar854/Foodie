@@ -181,6 +181,33 @@ Future<Response>verifyUserAccount(Session session,String email,String generatedO
 }
 
 
+Future<List<FoodieRestaurants>>searchRestaurents(Session session,double lat,double long, int radius)async{
+   var results = await session.dbNext.unsafeQuery("SELECT * FROM food_restaurants WHERE ST_DWithin(ST_Transform(ST_SetSRID(ST_MakePoint($long, $lat), 4326), 54030),  ST_Transform(ST_SetSRID(ST_MakePoint(addressgeolong, addressgeolat), 4326), 54030), $radius);");
+   List<FoodieRestaurants> restaurants = [];
+   
+ 
+  
+  for (var data in results) {
+    var result=data.toColumnMap();
+     var restaurant = FoodieRestaurants(
+      id: result['id'], // Assuming 'id' is a column in the food_restaurants table
+      restaurantsName: result['restaurantsName'],
+      restaurantsImage: result['restaurantsImage'],
+      address: result['address'],
+      email: result['email'],
+      countryCode: result['countryCode'],
+      mobileNo: result['mobileNo'],
+      password: result['password'],
+      addressgeolat: result['addressgeolat'],
+      addressgeolong: result['addressgeolong'],
+      isAccountVerified: result['isAccountVerified'],
+    );
+    restaurants.add(restaurant);
+  }
+  return restaurants;
+}
+
+
 }
 
 

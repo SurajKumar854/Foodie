@@ -305,6 +305,21 @@ class EndpointFoodieRestaurantsRepo extends _i1.EndpointRef {
           'enteredOTP': enteredOTP,
         },
       );
+
+  _i2.Future<List<_i6.FoodieRestaurants>> searchRestaurents(
+    double lat,
+    double long,
+    int radius,
+  ) =>
+      caller.callServerEndpoint<List<_i6.FoodieRestaurants>>(
+        'foodieRestaurantsRepo',
+        'searchRestaurents',
+        {
+          'lat': lat,
+          'long': long,
+          'radius': radius,
+        },
+      );
 }
 
 /// {@category Endpoint}

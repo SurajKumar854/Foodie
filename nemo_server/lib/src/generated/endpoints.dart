@@ -666,6 +666,38 @@ class Endpoints extends _i1.EndpointDispatch {
             params['enteredOTP'],
           ),
         ),
+        'searchRestaurents': _i1.MethodConnector(
+          name: 'searchRestaurents',
+          params: {
+            'lat': _i1.ParameterDescription(
+              name: 'lat',
+              type: _i1.getType<double>(),
+              nullable: false,
+            ),
+            'long': _i1.ParameterDescription(
+              name: 'long',
+              type: _i1.getType<double>(),
+              nullable: false,
+            ),
+            'radius': _i1.ParameterDescription(
+              name: 'radius',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['foodieRestaurantsRepo']
+                      as _i5.FoodieRestaurantsRepoEndpoint)
+                  .searchRestaurents(
+            session,
+            params['lat'],
+            params['long'],
+            params['radius'],
+          ),
+        ),
       },
     );
     connectors['note'] = _i1.EndpointConnector(
